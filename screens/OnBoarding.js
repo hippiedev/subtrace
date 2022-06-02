@@ -17,7 +17,17 @@ const OnBoarding = () => {
 
     const viewableItemsChanged = useRef(({viewableItems}) => {
         setCurrentIndex(viewableItems[0].index);
-    }).current
+    }).current;
+
+    const scrollTo = () => {
+      if (currentIndex < slides.length - 1) {
+        slidesRef.current.scrollToIndex({index: currentIndex + 1});
+      }
+      else {
+        console.log('Last item');
+      }
+    }
+
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar style="auto" />
@@ -48,7 +58,7 @@ const OnBoarding = () => {
         
         <Pagination data={slides} scrollX={scrollX} />
         </View>
-        <OnBoardButtons/>
+        <OnBoardButtons scrollTo={scrollTo} />
       </SafeAreaView>
     );
 }

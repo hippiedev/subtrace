@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Touchable,
   useWindowDimensions,
 } from "react-native";
 
@@ -19,10 +18,10 @@ export const OnBoardFinishButton = ({ title = "Get Started", onPress }) => {
   );
 };
 
-export const OnBoardButtons = () => {
+export const OnBoardButtons = ({scrollTo}) => {
   return (
     <View style={styles.onBoardButtonsWrap}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={scrollTo}>
         <View style={styles.onBoardButton}>
           <Text style={styles.text}>Next</Text>
         </View>
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
   text: {
     color: "#fff",
     fontSize: 20,
-    fontFamily: "GTAmerica",
+    fontFamily: "GTAmericaBold",
   },
   onBoardButtonsWrap: {
     flexDirection: "row",
