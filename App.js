@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {useFonts} from "expo-font";
+import OnBoarding from "./screens/OnBoarding";
+
 
 export default function App() {
+  // const [dataLoaded, setDataLoaded] = useState(false);
+  // if (!dataLoaded) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={fetchFonts}
+  //       onFinish={() => setDataLoaded(true)}
+  //       onError={(err) => console.log(err)}
+  //     />
+  //   );
+  // }
+  const [loaded] = useFonts({
+    Inter: require("./assets/fonts/Inter-Regular.otf"),
+    InterBold: require("./assets/fonts/Inter-Bold.otf"),
+    InterSemiBold: require("./assets/fonts/Inter-SemiBold.otf"),
+    GTAmerica: require("./assets/fonts/GT-America-Regular.otf"),
+    GTAmericaBold: require("./assets/fonts/GT-America-Bold.otf"),
+  });
+  
+  if (!loaded) {
+    return null;
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+   <OnBoarding />
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
