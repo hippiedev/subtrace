@@ -4,29 +4,30 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  Pressable,
   useWindowDimensions,
 } from "react-native";
 
 export const OnBoardFinishButton = ({ title = "Get Started", onPress }) => {
   return (
-    <TouchableOpacity>
+    <Pressable android_ripple={{color: "#ffffff"}} onPress={onPress}>
       <View style={styles.onBoardFinish}>
         <Text style={styles.text}>{title}</Text>
         <Image source={require("../../assets/images/Vector.png")} />
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
-export const OnBoardButtons = ({scrollTo}) => {
+export const OnBoardButtons = ({firstButtonText = "Next", secondButtonText = "Skip", firstButtonFunction, secondButtonFunction}) => {
   return (
     <View style={styles.onBoardButtonsWrap}>
-      <TouchableOpacity onPress={scrollTo}>
+      <TouchableOpacity onPress={firstButtonFunction}>
         <View style={styles.onBoardButton}>
-          <Text style={styles.text}>Next</Text>
+          <Text style={styles.text}>{firstButtonText}</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={secondButtonFunction}>
         <View
           style={[
             styles.onBoardButton,
@@ -37,7 +38,7 @@ export const OnBoardButtons = ({scrollTo}) => {
             },
           ]}
         >
-          <Text style={[styles.text, { color: "#1C6DD0" }]}>Skip</Text>
+          <Text style={[styles.text, { color: "#1C6DD0" }]}>{secondButtonText}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -47,13 +48,14 @@ export const OnBoardButtons = ({scrollTo}) => {
 const styles = StyleSheet.create({
   onBoardFinish: {
     paddingHorizontal: 20,
-    paddingVertical: 23,
+    paddingVertical: 20,
     backgroundColor: "#1C6DD0",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderRadius: 15,
-    marginTop: 35,
+    marginVertical: 50,
+    marginHorizontal: 40,
   },
   text: {
     color: "#fff",

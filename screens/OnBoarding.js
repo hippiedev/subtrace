@@ -1,13 +1,17 @@
-import { StatusBar } from "expo-status-bar";
 import {useState, useRef} from 'react';
-import { FlatList, SafeAreaView, StyleSheet, Image, Animated, View } from "react-native";
+import { FlatList, SafeAreaView, StyleSheet, Animated, View } from "react-native";
+import Header from '../components/Header';
 import OnBoardingItem from "../components/OnBoardingItem";
 import Pagination from "../components/Pagination";
-import { OnBoardButtons } from "../components/UI/Buttons";
+import { OnBoardButtons, OnBoardFinishButton } from "../components/UI/Buttons";
 import slides from "../slides";
 
-const OnBoarding = () => {
+const OnBoarding = ({navigation}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    const handleOnBoardFinish = () => {
+      navigation.replace('Welcome');
+    }
 
     const scrollX = useRef(new Animated.Value(0)).current;
 
@@ -24,41 +28,42 @@ const OnBoarding = () => {
         slidesRef.current.scrollToIndex({index: currentIndex + 1});
       }
       else {
-        console.log('Last item');
+        console.log(currentIndex);
       }
     }
 
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar style="auto" />
-        <Image
-          style={styles.logo}
-          source={require("../assets/images/logo..png")}
-        />
-        <View style={{flex: 3, alignItems: 'center'}}>
-        <FlatList
-          data={slides}
-          renderItem={({ item }) => <OnBoardingItem item={item} />}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          bounces={false}
-          keyExtractor={(item) => item.id}
-          onScroll={Animated.event([
-            { nativeEvent: { contentOffset: { x: scrollX } } },
-          ], {
-              useNativeDriver: false,
-          })}
-          scrollEventThrottle={32}
-          onViewableItemsChanged={viewableItemsChanged}
-          viewabilityConfig={viewConfig}
-          ref={slidesRef}
-          disableScrollViewPanResponder
-        />
-        
-        <Pagination data={slides} scrollX={scrollX} />
+        <Header />
+        <View style={{ flex: 3, alignItems: "center" }}>
+          <FlatList
+            data={slides}
+            renderItem={({ item }) => <OnBoardingItem item={item} />}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            bounces={false}
+            keyExtractor={(item) => item.id}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              {
+                useNativeDriver: false,
+              }
+            )}
+            scrollEventThrottle={32}
+            onViewableItemsChanged={viewableItemsChanged}
+            viewabilityConfig={viewConfig}
+            ref={slidesRef}
+            disableScrollViewPanResponder
+          />
+
+          <Pagination data={slides} scrollX={scrollX} />
         </View>
-        <OnBoardButtons scrollTo={scrollTo} />
+        {currentIndex === 2 ? (
+          <OnBoardFinishButton onPress={handleOnBoardFinish} />
+        ) : (
+          <OnBoardButtons firstButtonFunction={scrollTo} secondButtonFunction={handleOnBoardFinish} />
+        )}
       </SafeAreaView>
     );
 }
@@ -69,9 +74,6 @@ const styles = StyleSheet.create({
       flex: 1,
       height: "100%",
       paddingTop: 80,
-    },
-    logo: {
-        marginLeft: 40
     }
 })
 

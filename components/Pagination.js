@@ -17,7 +17,6 @@ const Pagination = ({data, scrollX}) => {
               const backgroundColor = scrollX.interpolate({
                   inputRange,
                   outputRange: ['#1C6DD0', '#FF6363', '#1C6DD0'],
-                  extrapolate: 'clamp',
               })
               return <Animated.View style={[styles.dot, {width: dotWidth, backgroundColor: backgroundColor}]} key={i.toString()} />
           })

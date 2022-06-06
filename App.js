@@ -1,18 +1,12 @@
-import {useFonts} from "expo-font";
+import { useFonts } from "expo-font";
 import OnBoarding from "./screens/OnBoarding";
-
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Welcome from "./screens/Welcome";
+import Login from "./screens/Login";
 
 export default function App() {
-  // const [dataLoaded, setDataLoaded] = useState(false);
-  // if (!dataLoaded) {
-  //   return (
-  //     <AppLoading
-  //       startAsync={fetchFonts}
-  //       onFinish={() => setDataLoaded(true)}
-  //       onError={(err) => console.log(err)}
-  //     />
-  //   );
-  // }
   const [loaded] = useFonts({
     Inter: require("./assets/fonts/Inter-Regular.otf"),
     InterBold: require("./assets/fonts/Inter-Bold.otf"),
@@ -20,12 +14,21 @@ export default function App() {
     GTAmerica: require("./assets/fonts/GT-America-Regular.otf"),
     GTAmericaBold: require("./assets/fonts/GT-America-Bold.otf"),
   });
-  
+
   if (!loaded) {
     return null;
   }
+  const Stack = createNativeStackNavigator();
   return (
-   <OnBoarding />
+    <>
+      <StatusBar style="auto" />
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="OnBoarding" component={OnBoarding} />
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Login" component={Login} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
-
