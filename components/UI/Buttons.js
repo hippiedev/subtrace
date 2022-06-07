@@ -45,6 +45,16 @@ export const OnBoardButtons = ({firstButtonText = "Next", secondButtonText = "Sk
   );
 };
 
+export const AuthButton = ({text = "Continue", onPress, buttonStyles}) => {
+  return (
+    <Pressable onPress={onPress}>
+      <View style={{...styles.authButton, ...buttonStyles}}>
+      <Text style={styles.text}>{text}</Text>
+      </View>
+    </Pressable>
+  )
+}
+
 const styles = StyleSheet.create({
   onBoardFinish: {
     paddingHorizontal: 20,
@@ -74,4 +84,11 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderRadius: 15,
   },
+  authButton: {
+    backgroundColor: '#1C6DD0',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 21,
+    borderRadius: 15,
+  }
 });
