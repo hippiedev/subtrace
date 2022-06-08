@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Welcome from "./screens/Welcome";
 import Login from "./screens/Login";
+import SignUp from "./screens/SignUp";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -27,6 +28,7 @@ export default function App() {
           <Stack.Screen name="OnBoarding" component={OnBoarding} />
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

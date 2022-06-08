@@ -1,11 +1,16 @@
-import { StyleSheet, Text, View, useWindowDimensions, Image } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, useWindowDimensions, Image, Dimensions } from "react-native";
+import {useState, createRef} from "react";
 import Header from "../components/Header";
 import Input from "../components/UI/Input";
 import { AuthButton } from "../components/UI/Buttons";
+const {width, height} = Dimensions.get("screen")
 
 const Login = () => {
+  const eye_open = require('../assets/images/eye_filled.png');
+  const eye_closed = require('../assets/images/eye_blind.png');
   const { width } = useWindowDimensions();
+  const [viewPassword, setViewPassword] = useState(false);
+
   return (
     <View style={[styles.container, { width }]}>
       <Header />
@@ -16,7 +21,6 @@ const Login = () => {
           <Text style={styles.subTitle}>Sign in to your account</Text>
         </View>
         <Input
-          blurOnSubmit
           autoCorrect={false}
           autoComplete="username"
           autoCapitalize="none"
@@ -27,17 +31,18 @@ const Login = () => {
           inputImageLeft={require('../assets/images/account_outlined.png')}
         />
         <Input
-          blurOnSubmit
           autoCorrect={false}
           autoComplete="password"
           autoCapitalize="none"
           placeholder="Password"
+          secureTextEntry={!viewPassword}
+          keyboardType={viewPassword ? "visible-password" : null}
           textContentType="password"
           placeholderTextColor="#626262"
           style={{ marginTop: 30 }}
-          keyboardType="visible-password"
           inputImageLeft={require('../assets/images/lock_outlined.png')}
-          inputImageRight={require('../assets/images/eye.png')}
+          inputImageRight={viewPassword ? eye_closed : eye_open}
+          togglePasswordView={() => setViewPassword(!viewPassword)}
         />
         <View style={styles.forgotPassword}>
           <Text style={styles.forgotPasswordText}>Forgot Password</Text>
@@ -52,7 +57,7 @@ const Login = () => {
           <Image source={require('../assets/images/google.png')} />
           <Image source={require('../assets/images/facebook.png')} />
         </View>
-        <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={{marginTop: height * 0.03, flexDirection: 'row', justifyContent: 'center'}}>
           <Text style={{...styles.subTitle, color: '#898989', marginRight: 10}}>New to subtrace?</Text>
           <Text style={{...styles.subTitle, color: '#1C6DD0'}}>Sign Up</Text>
         </View>

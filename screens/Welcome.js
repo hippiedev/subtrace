@@ -8,12 +8,15 @@ const Welcome = ({navigation}) => {
   const goToLogin = () => {
     navigation.navigate('Login')
   }
+  const goToSignUp = () => {
+    navigation.navigate('SignUp')
+  }
   return (
     <View style={[styles.container, {width, height: '100%'}]}>
       <Image style={styles.image} source={require('../assets/images/Account-rafiki1.jpg')} />
      <Text style={styles.title} >Welcome to Subtrace</Text>
      <Text style={styles.subtext}>Manage all your subscriptions from one place</Text>
-     <OnBoardButtons firstButtonFunction={goToLogin} firstButtonText='Log In' secondButtonText='Sign Up' />
+     <OnBoardButtons firstButtonFunction={goToLogin} secondButtonFunction={goToSignUp} firstButtonText='Log In' secondButtonText='Sign Up' />
     </View>
   )
 }
