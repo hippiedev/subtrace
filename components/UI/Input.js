@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useState, forwardRef } from "react";
 
-const Input = (props, inputRef) => {
+const Input = (props, ref) => {
   const [onFocus, setOnFocus] = useState(false);
   return (
     <View
@@ -33,6 +33,7 @@ const Input = (props, inputRef) => {
       </View>
       <TextInput
         {...props}
+        ref={ref}
         onFocus={() => setOnFocus(true)}
         onBlur={() => setOnFocus(false)}
         style={{
@@ -69,7 +70,7 @@ const Input = (props, inputRef) => {
   );
 };
 
-export default Input;
+export default forwardRef(Input);
 
 const styles = StyleSheet.create({
   inputContainer: {
